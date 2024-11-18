@@ -43,16 +43,16 @@ def generate_daily_workout(user):
 
 
 
-def mark_workout_completed(request, workout_id):
-    if request.user.is_authenticated:
-        try:
-            daily_workout = DailyWorkout.objects.get(id=workout_id, user=request.user)
-            daily_workout.completed = True
-            daily_workout.save()
-            return JsonResponse({"success": True, "message": "Workout marked as completed."})
-        except DailyWorkout.DoesNotExist:
-            return JsonResponse({"success": False, "message": "Workout not found."})
-    return JsonResponse({"success": False, "message": "User not authenticated."})
+# def mark_workout_completed(request, workout_id):
+#     if request.user.is_authenticated:
+#         try:
+#             daily_workout = DailyWorkout.objects.get(id=workout_id, user=request.user)
+#             daily_workout.completed = True
+#             daily_workout.save()
+#             return JsonResponse({"success": True, "message": "Workout marked as completed."})
+#         except DailyWorkout.DoesNotExist:
+#             return JsonResponse({"success": False, "message": "Workout not found."})
+#     return JsonResponse({"success": False, "message": "User not authenticated."})
 
 
 # Create your views here.

@@ -1,3 +1,5 @@
+{% load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,24 +36,25 @@
             <a class="nav-link h4" href="#">Features</a>
             <a class="nav-link h4" href="#">Pricing</a>
             <a class="nav-link h4" href="#">Disabled</a>
-            <a class="nav-link" href="profile.html"><div style="border: solid rgb(131, 131, 131) 2px; border-radius: 50%;"><img src="../fitness/static/images/7723143.png" alt="default image" width="30" ></a></div>
+            <a class="nav-link" href="profile.html"><div style="border: solid rgb(131, 131, 131) 2px; border-radius: 50%;"><img src="{{ request.user.profile.profile_image.url }}" alt="default image" width="30" ></a></div>
           </div>
         </div>
       </div>
     </nav>
+  </nav>
+  
+    
     <main>
-      <h1 class="display-2 ms-2 my-5">Hello <span><strong>*Username*</strong></span></h1>
+      <h1 class="display-2 ms-2 my-5">Hello <span><strong>{{ request.user.profile.full_name }}</strong></span></h1>
       <div class="card ms-5 mt-5" style="width: 28rem; @media screen and (max-width: 480px) {
         width:15rem;
       }">
         <div class="card-body">
           <h5 class="card-title">Current session</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit tenetur doloribus
-            expedita perferendis natus dolorem eum qui iste, et tempora cumque voluptates consectetur incidunt
-            recusandae nostrum voluptate voluptatem id magni alias quod est. Facilis cum quo modi nam eligendi commodi
-            expedita, voluptatum quae magni accusamus dignissimos temporibus, doloremque autem sint?
-          </p>
+          <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <ul>
+                <li>colour</li>
+              </ul>
         </div>
       </div>
       <p class="h4 ms-5 mt-5">Previous sessions</p>

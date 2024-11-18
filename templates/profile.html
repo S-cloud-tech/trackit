@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +48,7 @@
     <main style="margin-top: 9%; padding:0px 30%;">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="floatingInput" placeholder="john doe">
-        <label for="floatingInput">Full Name</label>
+        <label for="floatingInput">{{ user.username }}</label>
       </div>
       <div  class="form-floating mb-3">
         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">

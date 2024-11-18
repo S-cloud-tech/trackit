@@ -27,7 +27,7 @@ class User(AbstractBaseUser):
     is_active= models.BooleanField(default=True)
     staff= models.BooleanField( default = False)
     is_admin= models.BooleanField( default= False)
-    username = models.CharField(null=True, max_length=30)
+    username = models.CharField( max_length=30, unique= True)
    
     
     USERNAME_FIELD = 'email'
@@ -56,7 +56,7 @@ class Goal(models.Model):
         return self.title
     
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, null=True, blank=True)
     date_of_birth= models.DateField(null=True, blank=True)
     gender= models.CharField(max_length=10, null=True, blank=True)
@@ -86,8 +86,4 @@ class Profile(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
-
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+            

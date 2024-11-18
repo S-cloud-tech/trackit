@@ -5,16 +5,15 @@
         <form method="POST" class="form-group">
             {% csrf_token %}
             <div class="container">
-                <label for="uname"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="Email" required>
+                <label for="email"  id="email"><b>Email</b></label>
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
             
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
-            
+                <label for="psw"    id="password"><b>Password</b></label>
+                <input type="password" class="form-control" id="password" >
                 
               </div>
             
-            <button type="submit" class btn btn-success>Login</button>
+            <button type="submit" class=" btn btn-success" >Login</button>
             <p> Don't have an account ? <a href="/signup/">Sign up</a></p>
            
         </form>

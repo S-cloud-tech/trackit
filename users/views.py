@@ -4,6 +4,10 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm,ProfileForm
 from .models import Profile
 from .admin import  UserCreationForm
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.conf import settings
+
 
 
 def home(request):
@@ -33,31 +37,48 @@ def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
+            print("Form is valid")
+
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(request, email=email, password=password)
+           
             if user:
+                print("auth")
                 login(request, user)    
                 return redirect('dashboard')
         else:
+            print("not auth")
             form = LoginForm()
-    
+            print(login)
+    else:
+        print("Form errors:",form.errors)
+              
+
     return render(request, 'login.html',{'form':form})
-def user_profile(request):
+def profile(request):
     user=request.user
-    bmi= user.bmi
-    return render(request, 'user_profile.html',{'user':user,'bmi':bmi})
-@login_required
-def profile_update(request):
-    # Get the current user's profile or create one if it doesn't exist
-    profile, created = Profile.objects.get_or_create(user=request.user)
     
+    return render(request, 'profile.html',{'user':user})
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+@login_required
+def update_profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)  
+
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profile_update')  # Redirect after successful submission
-    else:
+            return redirect('profile')  
         form = ProfileForm(instance=profile)
-    
+
     return render(request, 'profile_update.html', {'form': form})
