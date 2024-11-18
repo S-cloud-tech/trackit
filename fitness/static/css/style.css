@@ -1,43 +1,73 @@
-
 body {
-    
-    background-color: #beb6b6;
-   }
-.img_title{
-    font-size: 4.5rem;
-    font-family: Oxanium;
-
+  background: url("/static/images/bg_img.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  overflow-y: none;
+  font-family: oxanium;
 }
-.img_desc{
-    font-size: 2rem;
 
+.logo {
+  margin-left: 20px;
 }
-.img-text{
-    text-align: center;
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform:  translate(-50%, -50%);
-    color: black;
 
+.img_title {
+  font-size: 4.5rem;
+  font-family: Oxanium;
 }
-.nav-l{
-    align-self: right;
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
+
+.img_desc {
+  font-size: 2rem;
+}
+
+.img-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #858585;
+}
+
+.nav-l {
+  align-self: right;
+  text-decoration: none;
+  color: black;
+  font-size: 25px;
+  font-weight: 700;
+  justify-content: end;
+  padding: 14px 10px;
+  margin-right: 20px;
+}
+
+.nav-l:hover {
+  color: whitesmoke;
+  background-color: black;
+}
+
+.nav {
+  justify-self: start;
+}
+
+.btn {
+  padding: 10px 0px;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 480px) {
+  .nav-l {
+    font-size: 15px;
     font-weight: 700;
-    font-family:oxanium;
-    justify-content: end;
-    padding: 14px 25px;
-}
-.nav-l:hover{
-    color: whitesmoke;
-    background-color: black;
-    background-size: 100%;
-    
-    
-}
-.nav{
-    justify-self: start;
+    padding: 7px 5px;
+  }
+
+  .img_title {
+    font-size: 3rem;
+    font-family: Oxanium;
+  }
+
+  .img_desc {
+    font-size: 1.5rem;
+  }
 }

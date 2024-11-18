@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
-from .models import User,UserManager
+from .models import User,UserManager, Goal, Profile
 
 
 User = get_user_model()
@@ -21,7 +21,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["email", "username", "first_name", "last_name", "date_of_birth"]
+        fields = ["email", "username"]
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -50,7 +50,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["email", "username", "password", "date_of_birth", "is_active", "is_admin"]
+        fields = ["email", "username", "password", "is_active", "is_admin"]
 
 
 class UserAdmin(BaseUserAdmin):
@@ -61,11 +61,11 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ["email", "date_of_birth", "is_admin","first_name","last_name", "username"]
+    list_display = ["email", "is_admin", "username"]
     list_filter = ["is_admin"]
     fieldsets = [
         (None, {"fields": ["email", "password", "username"]}),
-        ("Personal info", {"fields": ["date_of_birth"]}),
+       
         ("Permissions", {"fields": ["is_admin"]}),
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -75,7 +75,7 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ["wide"],
-                "fields": ["email","username", "date_of_birth", "password1", "password2"],
+                "fields": ["email","username", "password1", "password2"],
             },
         ),
     ]
@@ -83,9 +83,18 @@ class UserAdmin(BaseUserAdmin):
     ordering = ["email"]
     filter_horizontal = []
 
+@admin.register(Goal)
+class GoalAdmin(admin.ModelAdmin):
+    list_display = ['title', 'description']
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'full_name','gender','date_of_birth',"age", 'weight', 'height', 'bmi']
+
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
+
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
