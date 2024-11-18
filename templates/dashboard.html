@@ -39,7 +39,7 @@
       </div>
     </nav>
     <main>
-      <h1 class="display-2 ms-2 my-5">Hello <span><strong>*Username*</strong></span></h1>
+      <h1 class="display-2 ms-2 my-5">Hello <span><strong>{{request.user.profile.full_name}}</strong></span></h1>
       <div class="card ms-5 mt-5" style="width: 28rem; @media screen and (max-width: 480px) {
         width:15rem;
       }">

@@ -4,9 +4,18 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">  
         <form method="POST" class="form-group">
             {% csrf_token %}
-            {{form|crispy}}
-            <p> Don't have an account ? <a href="/signup/">Sign up</a></p>
+            <div class="container">
+                <label for="uname"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="Email" required>
+            
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+            
+                
+              </div>
+            
             <button type="submit" class btn btn-success>Login</button>
+            <p> Don't have an account ? <a href="/signup/">Sign up</a></p>
            
         </form>
     </div>

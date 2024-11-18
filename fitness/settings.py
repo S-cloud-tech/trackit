@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'users',
+    'workout',
    
 ]
 CRISPY_TEMPLATE_PACK = 'uni_form'

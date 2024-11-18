@@ -24,8 +24,10 @@ urlpatterns = [
     path( '', views.home ,name='home'),
     path('signup/', views.signup, name='sign_up'),
     path('login/', views.login, name='login'),
-    #path('logout/', auth_views.LogoutView.as_view(next_page='signup/'), name='logout'),
+    path('logout/', views.logout_view, name='logout'),
     #path('', include("django.contrib.auth.urls")),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('profile/update/', views.profile_update, name='profile_update'),
+
 ]
 urlpatterns += staticfiles_urlpatterns()

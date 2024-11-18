@@ -32,13 +32,16 @@
             <img src="/static/images/bg2.png" width="70" height="70" alt="company logo" class="logo">
         </a>
         {% if user.is_authenticated%}
-        <form class="container-fluid justify-content-end col-lg-12">
-            <a class="nav-l" href="# "> Tracker </a>
-            <a class="nav-l" href=" #"> Record </a>
-            <form method="post" action="/logout/">
-                {% csrf_token %}
-                <button type="submit" id="logout">logout</button>
-            </form>
+            <div>        
+                <form class="container-fluid justify-content-end col-lg-12">
+                <a class="nav-l" href="# "> Tracker </a>
+                <a class="nav-l" href=" #"> Record </a>
+                <a class="nav-l" href="{% url 'logout' %}"> logout </a>
+                <form method="post" action="/logout/">
+                    {% csrf_token %}
+                    <button type="submit" id="logout" style="">logout</button>
+                </form>
+            </div>
         </form>
         {% else %}
         <div class="nav">

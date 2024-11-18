@@ -1,4 +1,5 @@
-crispy_forms
-crispy_bootstrap5
+
 django
-pillows
+pillow
+
+
