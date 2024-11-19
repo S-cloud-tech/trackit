@@ -56,7 +56,7 @@ class Goal(models.Model):
         return self.title
     
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, null=True, blank=True)
     date_of_birth= models.DateField(null=True, blank=True)
     gender= models.CharField(max_length=10, null=True, blank=True)
