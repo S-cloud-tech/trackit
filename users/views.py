@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm,ProfileForm
-from .models import Profile
+from .admin import SignUpForm
+from .models import Profile, User
 from .admin import  UserCreationForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -13,49 +14,47 @@ from django.conf import settings
 def home(request):
     return render(request, 'home.html')
 
-@login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user = authenticate(user)
+            return redirect('dashboard')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+
+
+def login(request):
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request, email=email, password=password)  
+            if user.is_authenticated:
+                login(request, user)    
+                return redirect('/')
+        else:
+            print("not_auth")
+            form = LoginForm()
+    # else:
+    #     print("Form errors:",form.errors)
+
+    return render(request, 'login.html',{'form':form})
+
 
               
 def logout_view(request):
        logout(request)
        return redirect('/')
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user = authenticate.login(request, user)
-            return redirect('dashboard')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
-def login(request):
-    form = LoginForm()
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            print("Form is valid")
 
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            user = authenticate(request, email=email, password=password)
-           
-            if user:
-                print("auth")
-                login(request, user)    
-                return redirect('dashboard')
-        else:
-            print("not auth")
-            form = LoginForm()
-            print(login)
-    else:
-        print("Form errors:",form.errors)
-              
-
-    return render(request, 'login.html',{'form':form})
 def profile(request):
     user=request.user
     

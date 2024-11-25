@@ -5,15 +5,17 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import login, authenticate
 from .models import Profile
 class LoginForm(AuthenticationForm):
-    email = forms.EmailField(label='Enter Username', widget=forms.TextInput(attrs={'class':'form-control'}))
+    email = forms.EmailField(label='Enter Email', widget=forms.TextInput(attrs={'class':'form-control'}))
     password = forms.CharField(label='Enter Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    # email = forms.EmailField(label='Enter Username', widget=forms.TextInput(attrs={'class':'form-control'}))
+    # password = forms.CharField(label='Enter Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
     
-    def confirm_login_allowed(self, user):
-        if user.is_staff and not user.is_superuser:
-            raise ValidationError(
-                ("This account is not allowed here."),
-                code='not_allowed',
-            )
+    # def confirm_login_allowed(self, user):
+    #     if user.is_staff and not user.is_superuser:
+    #         raise ValidationError(
+    #             ("This account is not allowed here."),
+    #             code='not_allowed',
+    #         )
         
 class ProfileForm(forms.ModelForm):
     class Meta:

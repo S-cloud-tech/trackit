@@ -82,8 +82,3 @@ class Profile(models.Model):
                 (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day)
             )
         return None
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-            

@@ -17,19 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path,include
-from users import views 
+from users import urls 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path( '', views.home ,name='home'),
-    path('signup/', views.signup, name='sign_up'),
-    path('login/', views.login, name='login'),
-    path('logout/', views.logout_view, name='logout'),
-    #path('', include("django.contrib.auth.urls")),
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('profile/', views.profile, name='profile'),
-    path('profile/update/', views.update_profile, name='update_profile'),
-    
-
+    path( '', include('users.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
